@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>类式组件</title>
+    <style>
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 容器 -->
+    <div id="app"></div>
+
+    <!-- 引入React核心库 -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.2/babel.min.js"></script>
+
+    <script type="text/babel">
+        const app = document.getElementById("app");
+
+        // 创建类式组件
+        class MyComponent extends React.Component {
+            render(){
+                // render是放在哪里？--- MyComponent的原型对象上，供实例使用
+                // render中的this是谁？--- MyComponent的实例对象。MyComponent组件实例对象
+                console.log('render中的this: ',this);
+                return <h1>我是类式组件(适用于【复杂组件】的定义)</h1>
+            }
+        }
+
+        // 渲染组件到页面
+        ReactDOM.render(<MyComponent />, app);
+
+        /*
+            执行了ReactDOM.render(<MyComponent />......之后，发生了什么？
+                1. React解析组件标签，找到MyComponent组件
+                2. 发现组件是使用类定义的，随后new出来该类的实例，并通过该实例调用到原型上的render方法
+                3. 将render返回的虚拟DOM转为真实DOM，随后呈现在页面中
+        */
+    </script>
+</body>
+
+</html>

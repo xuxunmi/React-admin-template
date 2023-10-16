@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3_props的简写方式</title>
+    <style>
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 容器 -->
+    <div id="app1"></div>
+    <div id="app2"></div>
+    <div id="app3"></div>
+
+    <!-- 引入React核心库 -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.2/babel.min.js"></script>
+    <!-- 引入prop-type，用于对组件标签属性进行限制 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+
+    <script type="text/babel">
+        const app1 = document.getElementById("app1");
+        const app2 = document.getElementById("app2");
+        const app3 = document.getElementById("app3");
+
+        // 1.创建组件
+        class Person extends React.Component {
+            // 对标签属性进行类型必要性的限制
+            static propTypes = {
+                name: PropTypes.string.isRequired, // 限制name必传,且为字符串
+                age: PropTypes.number,
+                sex: PropTypes.string,
+                speak: PropTypes.func // 限制speak为函数
+            }
+            // 指定默认标签属性值
+            static defaultProps = {
+                sex: '男',
+                age: 18
+            }
+            render() {
+                // 1.获取props中的数据
+                const { name, age, sex } = this.props;
+                // props是只读的
+                // this.props.name = "张三"; // 报错,因为props是只读的
+                return (
+                    <ul>
+                        <li>姓名：{name}</li>
+                        <li>年龄：{age}</li>
+                        <li>性别：{sex}</li>
+                    </ul>
+                );
+            }
+        }
+        // 2.渲染组件到页面
+        ReactDOM.render(<Person name="徐寻觅1" age={18} speak={speak} />, app1);
+        ReactDOM.render(<Person name="徐寻觅2" sex="男" />, app2);
+
+        const p = { name: '徐寻觅', age: 22, sex: '男' }
+        // 批量传递标签属性
+        ReactDOM.render(<Person {...p} />, app3);
+
+        function speak() {
+            console.log('请大声说话 ',)
+        }
+    </script>
+</body>
+
+</html>

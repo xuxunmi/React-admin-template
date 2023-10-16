@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1_事件处理</title>
+    <style>
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 容器 -->
+    <div id="app"></div>
+
+    <!-- 引入React核心库 -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.2/babel.min.js"></script>
+    <!-- 引入prop-type，用于对组件标签属性进行限制 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+
+    <script type="text/babel">
+        const app = document.getElementById("app");
+
+        // 1.创建组件
+        class Demo extends React.Component {
+            /*
+                (1).通过onXxx属性指定事件处理函数(注意大小写)
+                    a.React使用的是自定义(合成)事件,而不是使用元升DOM事件 --- 为了更好的兼容性
+                    b.React中的事件是通过事件委托方式处理的(委托给最外层的元素) --- 为了高效
+                (2).通过event.target可以获取到事件的DOM元素对象 --不要过度使用ref
+            */
+            // 创建ref容器
+            myRef1 = React.createRef();
+            myRef2 = React.createRef();
+            // 展示左侧输入框数据
+            showData1 = () => {
+                console.log(this.myRef1)
+                const { current } = this.myRef1;
+                alert(current.value);
+            };
+            showData2 = (event) => {
+                console.log(event.target);
+                const { current } = this.myRef2;
+                alert(current.value);
+            };
+            render() {
+                return (
+                    <div>
+                        <input ref={this.myRef1} type="text" placeholder="点击按钮提示数据" />
+                        &nbsp;
+                        <button ref={this.btnRef} onClick={this.showData1}>点我提示左侧数据</button>&nbsp;
+                        <input
+                            onBlur={this.showData2}
+                            type="text"
+                            placeholder="失去焦点提示数据"
+                        />
+                    </div>
+                );
+            }
+        }
+        // 2.渲染组件到页面
+        ReactDOM.render(<Demo />, app);
+    </script>
+</body>
+
+</html>

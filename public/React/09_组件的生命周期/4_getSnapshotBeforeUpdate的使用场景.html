@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4_getSnapshotBeforeUpdate的使用场景</title>
+    <style>
+        .list {
+            width: 200px;
+            height: 150px;
+            background-color: yellowgreen;
+            overflow: auto;
+        }
+        .news {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 容器 -->
+    <div id="app"></div>
+
+    <!-- 引入React核心库 -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.2/babel.min.js"></script>
+    <!-- 引入prop-type，用于对组件标签属性进行限制 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+
+    <script type="text/babel">
+        const app = document.getElementById("app");
+
+        // 1.创建组件
+        // 生命周期回调函数 <=> 生命周期钩子函数 <=> 生命周期函数 <=> 生命钩子
+        class NewsList extends React.Component {
+            // 初始化状态
+            state = {
+                newsList: []
+            }
+
+            componentDidMount() {
+                setInterval(() => {
+                    // 获取原状态
+                    const { newsList } = this.state
+                    // 模拟数据
+                    const news = '新闻' + (newsList.length + 1)
+                    // 更新状态
+                    this.setState({ newsList: [news, ...newsList] })
+                }, 1000)
+            }
+
+            // 在更新前获取快照
+            getSnapshotBeforeUpdate() {
+                return this.refs.list.scrollHeight
+                return '徐寻觅'
+            }
+
+            // 组件更新完毕的钩子
+            componentDidUpdate(prevProps, prevState, height) {
+                this.refs.list.scrollTop +=  this.refs.list.scrollHeight - height
+            }
+
+            // render调用的时机: 初始化渲染,状态更新之后
+            render() {
+                return (
+                    <div className="list" ref="list">
+                        {
+                            this.state.newsList.map((item, index) => {
+                                return <div className="news" key={index}>{item}</div>
+                            })
+                        }
+                    </div>
+                );
+            }
+        }
+        // 2.渲染组件到页面
+        ReactDOM.render(<NewsList count={119} />, app);
+    </script>
+</body>
+
+</html>

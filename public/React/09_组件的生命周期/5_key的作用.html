@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5_key的作用</title>
+</head>
+
+<body>
+    <!-- 容器 -->
+    <div id="app"></div>
+
+    <!-- 引入React核心库 -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.2/babel.min.js"></script>
+    <!-- 引入prop-type，用于对组件标签属性进行限制 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+
+    <script type="text/babel">
+        const app = document.getElementById("app");
+
+        /*
+            1).react/vue中key有什么作用？(key的内部原理是什么)
+            2).为什么遍历列表时，key最好不要用index?
+
+            1. 虚拟DOM中key的作用：
+                1).简单说：key是虚拟DOM对象的唯一标识，在更新显示时key起着极其重要的作用。
+                2).详细说：当状态中的数据发生变化时，react会根据【新数据】生成【新的虚拟DOM】，随后react进行【新虚拟DOM】与【旧虚拟DOM】的diff比较，比较规则如何：
+                    a.旧虚拟DOM中找到了与新虚拟DOM相同的key：
+                        (1).若虚拟DOM中内容没有变，直接使用之前的真实DOM
+                        (2).若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM
+                    b.旧虚拟DOM中未找到与新虚拟DOM相同的key
+                        根据数据创建新的真实DOM，随后渲染到到页面
+            2. 用index作为key可能会引发的问题：
+                1.若对数据进行：逆序添加、逆序删除等破坏顺序操作:
+                    会产生没有必要的真实DOM更新 ==> 界面效果没问题,但效率低。
+                2.如果结构中还包含输入类的DOM：
+                    会产生错误DOM更新 ==> 界面有问题。
+                3.注意！如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的
+        */
+
+        // 1.创建组件
+        // 生命周期回调函数 <=> 生命周期钩子函数 <=> 生命周期函数 <=> 生命钩子
+        class Person extends React.Component {
+            // 初始化状态
+            state = {
+                personList: [
+                    {
+                        id: 1,
+                        name: '张三',
+                        age: 18
+                    },
+                    {
+                        id: 2,
+                        name: '李四',
+                        age: 19
+                    }
+                ]
+            }
+
+            add = () => {
+                const { personList } = this.state
+                const p = {
+                    id: personList.length + 1,
+                    name: '王五',
+                    age: 20
+                }
+                this.setState({ personList: [p, ...personList] })
+            }
+
+            // render调用的时机: 初始化渲染,状态更新之后
+            render() {
+                return (
+                    <div>
+                        <h2>展示人员信息：</h2>
+                        <button onClick={this.add}>添加人员</button>
+                        <h3>使用index索引值作为key</h3>
+                        <ul>
+                            {
+                                this.state.personList.map((item, index) => {
+                                    return <li key={index}>
+                                        {item.name}---{item.age}
+                                        &nbsp;
+                                        <input type="text" />
+                                    </li>
+                                })
+                            }
+                        </ul>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <h3>使用id索引值作为key</h3>
+                        <ul>
+                            {
+                                this.state.personList.map((item, index) => {
+                                    return <li key={item.id}>
+                                        {item.name}---{item.age}
+                                        &nbsp;
+                                        <input type="text" />
+                                    </li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                );
+            }
+        }
+        // 2.渲染组件到页面
+        ReactDOM.render(<Person />, app);
+    </script>
+</body>
+
+</html>

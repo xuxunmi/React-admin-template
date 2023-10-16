@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jsx语法规则</title>
+    <style>
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 容器 -->
+    <div id="app"></div>
+
+    <!-- 引入React核心库 -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.2/babel.min.js"></script>
+
+    <script type="text/babel">
+        const app = document.getElementById("app");
+
+        const myId = 'xXm';
+        const myData = 'HelLo,rEact';
+        const data = ['Angular', 'React', 'Vue']
+        // 创建虚拟DOM
+        const VDOM = (
+            <div>
+                <h1 className="title" id={myId.toLocaleLowerCase()}>
+                    <span style={{ color: 'red', fontSize: '48px' }}>{myData.toLocaleLowerCase()}</span>
+                </h1>
+                <ul>
+                    {
+                        data.map((item, index) =>
+                            <li key={index}>{item}</li>
+                        )
+                    }
+                </ul>
+            </div>
+        );
+        // 渲染虚拟DOM到页面
+        ReactDOM.render(VDOM, app);
+
+        /*
+            jsx语法规则：
+                1.定义虚拟dom时，不要写引号 
+                2.标签中混入js表达式时要用 {}
+                3.样式得类名指定不要用class，要用className
+                4.内联样式，要用style={{key:value}}的形式，其中key是css属性，value是属性值
+                5.只有一个根标签
+                6.标签必须闭合
+                7.标签首字母
+                    (1).若小写字母开头,则将该标签转为html中同名元素,若html中无该标签对应同盟元素,则报错。
+                    (2).若大写字母开头,react就去渲染对应的组件,若组件没有定义,则报错。
+        */
+    </script>
+</body>
+
+</html>
