@@ -2,69 +2,152 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+本项目旨在是学习React语法和全家桶及周边生态
+基于 React + less + Element-Plus 搭建的项目
+
 ## Available Scripts
 
 In the project directory, you can run:
+```sh
+# 配置
+1. node 版本 18+
+2. pnpm 版本 8.x
+```
 
-### `npm start`
+```sh
+# 安装依赖
+pnpm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Compile and Hot-Reload for Development
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```sh
+# 启动服务
+npm start
+```
 
-### `npm test`
+### Type-Check, Compile and Minify for Production
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+npm run build
+```
 
-### `npm run build`
+### Git Commit规范
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+feat: 新功能(feature)
+fix: 修复(bug fix)
+docs: 修改文档 (documentation)
+style: 代码格式(不影响代码运行的变动)
+refactor: 代码重构(即不是新增功能，也不是修改bug的代码变动)
+perf: 改善性能(即优化相关代码或性能)
+revert: 代码回退
+test: 增加测试
+chore: 构建过程或辅助工具的变动
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 目录结构
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+├─ .husky                # 用户提交代码时格式化代码
+├─ .vscode               # vscode 配置和拓展
+├─ public
+│  └─ favicon.ico
+├─ src
+│  ├─ api                # api 接口
+│  ├─ assets             # 静态资源
+│  ├─ caches             # 本地缓存
+│  ├─ components         # 全局组件
+│  ├─ directives         # 全局指令
+│  ├─ hooks              # 全局hook
+│  ├─ http               # axios配置
+│  ├─ icons              # svg icon
+│  ├─ interface          # ts接口类型声明
+│  ├─ plugins            # 全局插件
+│  ├─ directives         # 全局指令
+│  ├─ router             # 路由
+│  ├─ store              # pinia store
+│  ├─ styles             # 全局样式
+│  ├─ utils              # 全局公共方法
+│  └─ views              # 所有页面
+│  │   ├── Home              # 首页
+│  │   ├── Layout            # 布局组件
+│  │   │   ├── LayoutHeader      # 头部导航
+│  │   │   ├── LayoutNavMenu     # 左侧菜单栏
+│  │   │   ├── LayoutMain        # 主页面内容
+│  │   │   ├── MainTags          # 主页面页签
+│  │   │   └── MenuNavBar        # MenuNav组件
+│  │   ├── Error             # 错误页面
+│  │   ├── Login             # 登录页面
+│  │   ├── UserManage        # 用户管理页面
+│  │   │   ├── organization      # 组织管理页面
+│  │   │   ├── flowpath          # 流程管理页面
+│  │   │   └── permission        # 权限管理页面
+│  │   ├── TablePlus         # 自定义表格页面
+│  │   ├── task              # 我的任务页面
+│  │   └── monitor           # 项目监控页面
+│  ├─ App.vue            # 入口页面
+│  └─ main.ts            # 入口文件
+├─ tests                 # 单元测试
+├─ types                 # ts 声明
+├─ .env.development      # 开发环境
+├─ .env.production       # 正式环境
+├─ .env.staging          # 预发布环境
+├─ .eslintrc.js          # eslint配置
+├─ .gitignore            # git push忽略文件
+├─ .prettierignore       # prettier忽略文件
+├─ .prettierrc           # prettier配置
+├─ tailwind.config.js    # tailwind配置
+├─ tsconfig.json         # ts 编译配置
+└─ vite.config.ts        # vite 配置
+```
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+/*
+ *                                |~~~~~~~|
+ *                                |       |
+ *                                |       |
+ *                                |       |
+ *                                |       |
+ *                                |       |
+ *     |~.\\\_\~~~~~~~~~~~~~~xx~~~         ~~~~~~~~~~~~~~~~~~~~~/_//;~|
+ *     |  \  o \_         ,XXXXX),                         _..-~ o /  |
+ *     |    ~~\  ~-.     XXXXX`)))),                 _.--~~   .-~~~   |
+ *      ~~~~~~~`\   ~\~~~XXX' _/ ';))     |~~~~~~..-~     _.-~ ~~~~~~~
+ *               `\   ~~--`_\~\, ;;;\)__.---.~~~      _.-~
+ *                 ~-.       `:;;/;; \          _..-~~
+ *                    ~-._      `''        /-~-~
+ *                        `\              /  /
+ *                          |         ,   | |
+ *                           |  '        /  |
+ *                            \/;          |
+ *                             ;;          |
+ *                             `;   .       |
+ *                             |~~~-----.....|
+ *                            | \             \
+ *                           | /\~~--...__    |
+ *                           (|  `\       __-\|
+ *                           ||    \_   /~    |
+ *                           |)     \~-'      |
+ *                            |      | \      '
+ *                            |      |  \    :
+ *                             \     |  |    |
+ *                              |    )  (    )
+ *                               \  /;  /\  |
+ *                               |    |/   |
+ *                               |    |   |
+ *                                \  .'  ||
+ *                                |  |  | |
+ *                                (  | |  |
+ *                                |   \ \ |
+ *                                || o `.)|
+ *                                |`\\) |
+ *                                |       |
+ *                                |       |
+ * 
+ * 
+ *      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *                               耶稣 欢迎光临
+ */

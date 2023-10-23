@@ -1,0 +1,3 @@
+// 忽略不代码格式的文件
+node_modules/
+dist
