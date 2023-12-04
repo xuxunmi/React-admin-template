@@ -4,13 +4,19 @@ import { BrowserRouter } from 'react-router-dom'
 import './style/index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+// 引入store
+import store from './redux/store'
+import { Provider } from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
         {/* history模式路由 */}
         <BrowserRouter>
-            <App />
+            {/* 组件使 Redux store 可用于任何需要访问 Redux store 的嵌套组件 */}
+            <Provider store={store}>
+                <App />
+            </Provider>
         </BrowserRouter>
     </React.StrictMode>
 )

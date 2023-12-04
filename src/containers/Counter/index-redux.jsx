@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react'
 // 引入store，用于获取redux中保存的状态
 import store from '../../redux/store'
+// 引入actionCreator,专门用于创建action对象
+import { createIncrementAction, createDecrementAction, createIncrementAsyncAction } from '../../redux/actions/counter'
 
 export default function Counter() {
     const selectNumberRef = useRef(null)
@@ -26,7 +28,8 @@ export default function Counter() {
     // redux加法
     const increment = () => {
         const value = selectNumberRef.current.value
-        store.dispatch({ type: 'increment', data: Number(value) })
+        // store.dispatch({ type: 'increment', data: Number(value) })
+        store.dispatch(createIncrementAction(Number(value)))
     }
 
     // 减法
@@ -37,7 +40,8 @@ export default function Counter() {
     // redux减法
     const decrement = () => {
         const value = selectNumberRef.current.value
-        store.dispatch({ type: 'decrement', data: Number(value) })
+        // store.dispatch({ type: 'decrement', data: Number(value) })
+        store.dispatch(createDecrementAction(Number(value)))
     }
 
     // 奇数再加
@@ -51,7 +55,8 @@ export default function Counter() {
     const incrementIfAdd = () => {
         const value = selectNumberRef.current.value
         if (count % 2 !== 0) {
-            store.dispatch({ type: 'increment', data: Number(value) })
+            // store.dispatch({ type: 'increment', data: Number(value) })
+            store.dispatch(createIncrementAction(Number(value)))
         }
     }
 
@@ -65,9 +70,8 @@ export default function Counter() {
     // redux异步再加
     const incrementAsync = () => {
         const value = selectNumberRef.current.value
-        setTimeout(() => {
-            store.dispatch({ type: 'increment', data: Number(value) })
-        }, 1000)
+        // store.dispatch({ type: 'increment', data: Number(value) })
+        store.dispatch(createIncrementAsyncAction(Number(value), 1000))
     }
 
     return (
