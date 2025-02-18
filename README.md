@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 
 本项目旨在是学习React语法和全家桶及周边生态
-基于 React + less + Element-Plus 搭建的项目
+基于 React + less + Ant-Design 搭建的项目
 
 ## Available Scripts
 
